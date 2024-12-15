@@ -6,6 +6,7 @@ require_once "../include/functions.php";
 $sales = getAllSales();
 $salesWithWarranty = getProductsWithValidWarranty();
 $topCustomer = getTopCustomer();
+$dataWithMostSales = getDateWithMostSales();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action']) && $_POST['action'] === "addSale") {
     $numarCard = $_POST['numarCard'];
@@ -107,6 +108,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action']) && $_POST['
         <?php else: ?>
             <tr>
                 <td colspan="3">Nu sunt clienti inregistrati.</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+
+
+<h2>Data cu cele mai multe vanzari</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Data Vanzarii</th>
+            <th>Numar vanzari</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if ($dataWithMostSales): ?>
+            <tr>
+                <td><?= htmlspecialchars($dataWithMostSales['DATAVANZARII']) ?></td>
+                <td><?= htmlspecialchars($dataWithMostSales['NUMARVANZARI']) ?></td>
+            </tr>
+        <?php else: ?>
+            <tr>
+                <td colspan="3">Nu sunt date cu vanzari.</td>
             </tr>
         <?php endif; ?>
     </tbody>

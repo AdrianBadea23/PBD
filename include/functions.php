@@ -158,9 +158,9 @@ function getBestSellingProduct() {
 // Date with the highest number of sales
 function getDateWithMostSales() {
     global $pdo;
-    $sql = "SELECT s.DataVanzarii, COUNT(*) AS NumarVanzari
+    $sql = "SELECT TRUNC(s.DataVanzarii) as DataVanzarii, SUM(s.Cantitate) AS NumarVanzari
             FROM sales s
-            GROUP BY s.DataVanzarii
+            GROUP BY TRUNC(s.DataVanzarii)
             ORDER BY NumarVanzari DESC
             FETCH FIRST 1 ROWS ONLY";
     return $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
